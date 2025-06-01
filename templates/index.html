@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Погода в твоём городе</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Проверь погоду в своём городе!</h1>
+    </header>
+    <section class="container">
+        <form method="post" action="/get_weather">
+            <label for="city">Какой твой город?</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Посмотреть погоду</button>
+        </form>
+        {% if weather %}
+        <div class="result-box">
+            <p>Город: {{ weather.city }}</p>
+            <p>Температура: {{ weather.temp }}</p>
+            <p>Описание: {{ weather.desc }}</p>
+            <p>{{ weather.hum }}</p>
+            <p>{{ weather.wind }}</p>
+        </div>
+        {% elif error %}
+        <div class="error-message">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </section>
+</body>
+</html>
